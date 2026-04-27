@@ -1,0 +1,33 @@
+import requests
+import os
+import time
+
+# الرابط الخاص بجوجل شيت بصيغة CSV
+URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT7VyU_we2Rc3vYaE3ZzodM5wsub_OdlLQ5CYZPvfzlIfpXi19x58aYAavXxs0UvFuIUSnYQ0foIv41/pub?output=csv"
+
+# إنشاء مجلد data لحفظ الملفات
+os.makedirs("data", exist_ok=True)
+
+# إضافة رقم عشوائي (توقيت) للرابط لتجنب الكاش
+url_with_time = f"{URL}&t={int(time.time())}"
+
+try:
+    response = requests.get(url_with_time)
+    
+    if response.status_code == 200:
+        response.encoding = 'utf-8-sig'
+        
+        # حفظ الملف في مجلد data باسم gold_prices.csv
+        file_path = "data/gold_prices.csv"
+        
+        with open(file_path, "w", encoding="utf-8-sig") as f:
+            f.write(response.text)
+            # إضافة سطر التحديث لضمان أن GitHub يرى تغييراً في الملف
+            f.write(f"\n# Last Update: {time.ctime()}")
+            
+        print(f"✅ Successfully updated: {file_path}")
+    else:
+        print(f"❌ Error: Status code {response.status_code}")
+
+except Exception as e:
+    print(f"❌ An error occurred: {e}")
