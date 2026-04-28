@@ -3,7 +3,7 @@ import os
 import time
 
 # الرابط الخاص بجوجل شيت بصيغة CSV
-URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT7VyU_we2Rc3vYaE3ZzodM5wsub_OdlLQ5CYZPvfzlIfpXi19x58aYAavXxs0UvFuIUSnYQ0foIv41/pub?output=csv"
+URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTEbahjTUJHIyenCbyZPGQBqKN_-BYloX3NZOWV8gaY1KZbM4Fx-_7kEPi4SZDP_si511ANpKLQhstb/pub?output=csv"
 
 # إنشاء مجلد data لحفظ الملفات
 os.makedirs("data", exist_ok=True)
