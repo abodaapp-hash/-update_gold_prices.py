@@ -2,8 +2,10 @@ name: Update Gold Prices Workflow
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # تشغيل كل 30 دقيقة
-  workflow_dispatch:      # تشغيل يدوي للتجربة
+    - cron: '*/30 * * * *'  # التحديث التلقائي الداخلي كل 30 دقيقة
+  workflow_dispatch:      # زر التشغيل اليدوي من الموقع
+  repository_dispatch:    # الاستجابة لموقع cron-job.org
+    types: [manual_trigger]
 
 jobs:
   update_data:
@@ -31,5 +33,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/
-          git commit -m "Auto-update prices" || echo "No changes"
+          git commit -m "Auto-update prices: $(date)" || echo "No changes to commit"
           git push
