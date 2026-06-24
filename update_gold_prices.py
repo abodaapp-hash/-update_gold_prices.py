@@ -17,7 +17,7 @@ try:
     if response.status_code == 200:
         response.encoding = "utf-8-sig"
 
-        # حذف علامات الاقتباس فقط
+        # حذف علامات الاقتباس فقط مع الإبقاء على فواصل الآلاف
         csv_text = response.text.replace('"', '')
 
         # حفظ الملف
