@@ -3,13 +3,10 @@ import os
 import time
 import re
 
-# الرابط الخاص بجوجل شيت بصيغة CSV
 URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTEbahjTUJHIyenCbyZPGQBqKN_-BYloX3NZOWV8gaY1KZbM4Fx-_7kEPi4SZDP_si511ANpKLQhstb/pub?output=csv"
 
-# إنشاء مجلد data لحفظ الملفات
 os.makedirs("data", exist_ok=True)
 
-# إضافة رقم عشوائي (توقيت) للرابط لتجنب الكاش
 url_with_time = f"{URL}&t={int(time.time())}"
 
 try:
@@ -18,16 +15,14 @@ try:
     if response.status_code == 200:
         response.encoding = "utf-8-sig"
 
-        # قراءة الملف كما هو من Google Sheets
         csv_text = response.text
 
         # حذف علامات الاقتباس فقط
         csv_text = csv_text.replace('"', '')
 
-        # تحويل فواصل الآلاف فقط من , إلى ٬
+        # تحويل فواصل الآلاف داخل الأسعار فقط
         csv_text = re.sub(r'(\d),(\d{3})', r'\1٬\2', csv_text)
 
-        # حفظ الملف
         file_path = "data/gold_prices.csv"
 
         with open(file_path, "w", encoding="utf-8-sig") as f:
