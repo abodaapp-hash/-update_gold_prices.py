@@ -17,18 +17,18 @@ try:
     if response.status_code == 200:
         response.encoding = "utf-8-sig"
 
-        # حذف جميع علامات الاقتباس
+        # حذف علامات الاقتباس فقط
         csv_text = response.text.replace('"', '')
 
-        # حفظ الملف في مجلد data باسم gold_prices.csv
+        # حفظ الملف
         file_path = "data/gold_prices.csv"
 
         with open(file_path, "w", encoding="utf-8-sig") as f:
             f.write(csv_text)
-            # إضافة سطر التحديث لضمان أن GitHub يرى تغييراً في الملف
             f.write(f"\n# Last Update: {time.ctime()}")
 
         print(f"✅ Successfully updated: {file_path}")
+
     else:
         print(f"❌ Error: Status code {response.status_code}")
 
