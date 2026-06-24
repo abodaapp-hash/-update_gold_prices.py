@@ -17,10 +17,10 @@ try:
     if response.status_code == 200:
         response.encoding = "utf-8-sig"
 
-        # حذف علامات الاقتباس فقط مع الإبقاء على فواصل الآلاف
+        # حذف علامات الاقتباس فقط
         csv_text = response.text.replace('"', '')
 
-        # حفظ الملف
+        # حفظ الملف في مجلد data باسم gold_prices.csv
         file_path = "data/gold_prices.csv"
 
         with open(file_path, "w", encoding="utf-8-sig") as f:
