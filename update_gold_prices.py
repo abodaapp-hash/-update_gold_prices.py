@@ -18,10 +18,13 @@ try:
     if response.status_code == 200:
         response.encoding = "utf-8-sig"
 
-        # حذف علامات الاقتباس فقط
-        csv_text = response.text.replace('"', '')
+        # قراءة الملف كما هو من Google Sheets
+        csv_text = response.text
 
-        # تحويل فواصل الآلاف داخل الأرقام فقط من , إلى ٬
+        # حذف علامات الاقتباس فقط
+        csv_text = csv_text.replace('"', '')
+
+        # تحويل فواصل الآلاف فقط من , إلى ٬
         csv_text = re.sub(r'(\d),(\d{3})', r'\1٬\2', csv_text)
 
         # حفظ الملف
