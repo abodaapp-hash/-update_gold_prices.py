@@ -1,6 +1,7 @@
 import requests
 import os
 import time
+import re
 
 # الرابط الخاص بجوجل شيت بصيغة CSV
 URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTEbahjTUJHIyenCbyZPGQBqKN_-BYloX3NZOWV8gaY1KZbM4Fx-_7kEPi4SZDP_si511ANpKLQhstb/pub?output=csv"
@@ -20,7 +21,10 @@ try:
         # حذف علامات الاقتباس فقط
         csv_text = response.text.replace('"', '')
 
-        # حفظ الملف في مجلد data باسم gold_prices.csv
+        # تحويل فواصل الآلاف داخل الأرقام فقط من , إلى ٬
+        csv_text = re.sub(r'(\d),(\d{3})', r'\1٬\2', csv_text)
+
+        # حفظ الملف
         file_path = "data/gold_prices.csv"
 
         with open(file_path, "w", encoding="utf-8-sig") as f:
